@@ -2046,12 +2046,35 @@ __webpack_require__.r(__webpack_exports__);
       StartZeitpunkt: "",
       EndZeitpunkt: "",
       Wiederholungen: "",
-      Intensitaet: ""
+      Intensitaet: "",
+      member: ''
     };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get('test').then(function (response) {
+      _this.member = response.data;
+      console.log(_this.member);
+    });
   },
   methods: {
     log: function log() {
-      console.log("test");
+      var _this2 = this;
+
+      axios.get('test').then(function (response) {
+        _this2.member = response.data;
+        console.log(_this2.member);
+      });
+    },
+    store: function store() {
+      var data = new FormData();
+      data.append("firstname", "Tim");
+      data.append("lastname", "Lyra");
+      data.append("birthday", "23.11.2021");
+      axios.post("test2", data).then(function () {
+        console.log("Added");
+      });
     }
   }
 });
@@ -20122,7 +20145,7 @@ var render = function() {
                 attrs: { type: "submit", value: "Daten eintragen" },
                 on: {
                   click: function($event) {
-                    return _vm.log()
+                    return _vm.store()
                   }
                 }
               })
@@ -20130,7 +20153,8 @@ var render = function() {
           ])
         ])
       ]
-    )
+    ),
+    _vm._v("  \n            " + _vm._s(this.member) + "\n    ")
   ])
 }
 var staticRenderFns = [
@@ -36310,8 +36334,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/dev/Dev/vue-spa-laravel-master/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/dev/Dev/vue-spa-laravel-master/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/dev/Dev/Fitnessstud/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/dev/Dev/Fitnessstud/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

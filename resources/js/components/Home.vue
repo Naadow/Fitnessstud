@@ -56,11 +56,11 @@
 						</td>
                     </tr>
                     <tr>
-                        <td colspan="2"><input @click="log()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" type="submit" value="Daten eintragen"></td>
+                        <td colspan="2"><input @click="store()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" type="submit" value="Daten eintragen"></td>
                     </tr>
                 </tbody>
-            </table>
-  
+            </table>  
+            {{this.member}}
     </div>
 </template>
 <script>
@@ -72,14 +72,38 @@ export default {
             EndZeitpunkt:"",
             Wiederholungen:"",
             Intensitaet:"",
+            member:'',
 
         }
     },
 
+    mounted(){
+         axios.get('test')
+                     .then((response)=>{
+                       this.member = response.data
+                       console.log(this.member)
+                     })
+    },
+
     methods:{
      log(){
-         console.log("test")
-     }   
+         axios.get('test')
+                     .then((response)=>{
+                       this.member = response.data
+                       console.log(this.member)
+                     })
+     },
+
+     store()
+     {
+        let data = new FormData();
+        data.append("firstname","Tim");
+        data.append("lastname", "Lyra");
+        data.append("birthday","23.11.2021");
+
+        axios.post("test2", data).then(()=>{console.log("Added")})
+     }
+
     }
     
 }
