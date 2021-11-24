@@ -17,6 +17,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('test', 'MemberController@index');
+Route::get('/about', function () {
+    return view('welcome');
+});
 
+Route::get('test', 'MemberController@index');
 Route::post('test2', 'MemberController@store');
+
+
+Route::post('addDevice', 'DeviceController@store');
+Route::get('getDevice', 'DeviceController@index');

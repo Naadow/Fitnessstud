@@ -17,9 +17,13 @@ class MemberController extends Controller
     public function store(Request $request)
     {
         $member = new \App\Member();
-        $member-> firstname = "Test";
-        $member -> lastname = "Test";
-        $member->birthday = "24.01.2001";
+        $member-> firstname = $request->firstname;
+        $member -> lastname = $request->lastname;
+        $member->birthday = $request->birthday;
         $member->save();
+        return Member::get();
     }
+
+
+
 }

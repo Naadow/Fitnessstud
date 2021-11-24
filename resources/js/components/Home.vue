@@ -1,7 +1,6 @@
 <template>
-    <div class="text-2xl text-gray-800">
-
-      
+ 
+      <div>
             <table border="1" cellpadding="2" cellspacing="2">
                 <tbody>
                     <tr>
@@ -56,12 +55,14 @@
 						</td>
                     </tr>
                     <tr>
-                        <td colspan="2"><input @click="store()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" type="submit" value="Daten eintragen"></td>
+                        <td colspan="2"><input @click="storeDeviceInformations()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" type="submit" value="Daten eintragen"></td>
                     </tr>
                 </tbody>
             </table>  
             {{this.member}}
-    </div>
+            <h1>----</h1>
+            {{this.devices}}
+      </div>
 </template>
 <script>
 export default {
@@ -73,6 +74,7 @@ export default {
             Wiederholungen:"",
             Intensitaet:"",
             member:'',
+            devices:'',
 
         }
     },
@@ -82,29 +84,50 @@ export default {
                      .then((response)=>{
                        this.member = response.data
                        console.log(this.member)
-                     })
+                     });
+
+        axios.get('getDevice')
+                     .then((response)=>{
+                       this.devices = response.data
+                       console.log(this.devices)
+                     });
+            
     },
 
     methods:{
-     log(){
-         axios.get('test')
-                     .then((response)=>{
-                       this.member = response.data
-                       console.log(this.member)
-                     })
-     },
+        log(){
+            axios.get('test')
+                        .then((response)=>{
+                        this.member = response.data
+                        console.log(this.member)
+                        })
+        },
 
-     store()
-     {
+        storeMemberInformations()
+        {
         let data = new FormData();
         data.append("firstname","Tim");
         data.append("lastname", "Lyra");
         data.append("birthday","23.11.2021");
+        axios.post("test2", data).then((response)=>{this.member = response.data})
+        },
 
-        axios.post("test2", data).then(()=>{console.log("Added")})
-     }
+        storeDeviceInformations(){
+            let data =  new FormData();
+            data.append("description", "Latzug" )
+            data.append("intensityfactor", 1 )
+            data.append("totalmovementcounter", 1)
+            data.append("maximumliftuptowarning", 1)
+            data.append("basicforce", 1)
+            data.append("carrera" , 1)
+
+            axios.post("addDevice", data).then((response) => {
+                this.devices = response.data;
+                console.log("Added");
+            })
+        }
+
 
     }
-    
 }
 </script>
